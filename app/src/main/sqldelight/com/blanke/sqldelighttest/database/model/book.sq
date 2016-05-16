@@ -1,0 +1,20 @@
+CREATE TABLE book (
+  _id LONG NOT NULL PRIMARY KEY AUTOINCREMENT,
+  isbn STRING NOT NULL,
+  title STRING NOT NULL,
+  release_year CLASS('java.util.Calendar')
+);
+
+select_all:
+select *
+from book;
+
+select_by_title:
+select *
+from book
+where book.title = ?;
+
+select_by_isbn:
+select *
+from book
+where book.isbn = ?;
