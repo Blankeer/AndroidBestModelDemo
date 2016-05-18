@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.squareup.sqldelight'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     signingConfigs {
@@ -13,6 +15,11 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -25,4 +32,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.google.auto.value:auto-value:1.2'
+    apt "com.google.auto.value:auto-value:1.2"
 }

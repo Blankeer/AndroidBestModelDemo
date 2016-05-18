@@ -1,8 +1,8 @@
 CREATE TABLE book (
-  _id LONG NOT NULL PRIMARY KEY AUTOINCREMENT,
-  isbn STRING NOT NULL,
-  title STRING NOT NULL,
-  release_year CLASS('java.util.Calendar')
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  isbn TEXT NOT NULL,
+  title TEXT NOT NULL,
+  release_year INTEGER AS 'java.time.ZonedDateTime'
 );
 
 select_all:
