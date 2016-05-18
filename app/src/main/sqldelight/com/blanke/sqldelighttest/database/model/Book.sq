@@ -2,7 +2,7 @@ CREATE TABLE book (
   id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   isbn TEXT NOT NULL,
   title TEXT NOT NULL,
-  release_year INTEGER AS 'java.time.ZonedDateTime'
+  release_year INTEGER AS 'org.threeten.bp.ZonedDateTime'
 );
 
 select_all:

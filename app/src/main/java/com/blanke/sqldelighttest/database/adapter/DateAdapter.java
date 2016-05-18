@@ -5,8 +5,9 @@ import android.database.Cursor;
 
 import com.squareup.sqldelight.ColumnAdapter;
 
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
+
 
 /**
  * Created by blanke on 16-5-16.
