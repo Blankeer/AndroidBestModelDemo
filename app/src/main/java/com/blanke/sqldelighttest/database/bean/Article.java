@@ -1,14 +1,18 @@
-package com.blanke.sqldelighttest.database.model;
+package com.blanke.sqldelighttest.database.bean;
+
+import android.os.Parcelable;
 
 import com.blanke.sqldelighttest.database.adapter.DateAdapter;
 import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 import com.squareup.sqldelight.ColumnAdapter;
 
 /**
  * Created by blanke on 16-5-18.
  */
 @AutoValue
-public abstract class Article implements ArticleModel {
+public abstract class Article implements ArticleModel, Parcelable {
     private static final DateAdapter DATE_ADAPTER = new DateAdapter();
 
     public static final ArticleModel.Mapper<Article> MAPPER =
@@ -26,4 +30,7 @@ public abstract class Article implements ArticleModel {
         }
     }
 
+    public static TypeAdapter<Article> typeAdapter(Gson gson) {
+        return new AutoValue_Article.GsonTypeAdapter(gson);
+    }
 }

@@ -1,5 +1,5 @@
 CREATE TABLE article (
-  _id TEXT NOT NULL PRIMARY KEY AUTOINCREMENT,
+  _id TEXT NOT NULL PRIMARY KEY,
   publishedAt TEXT AS 'org.threeten.bp.ZonedDateTime' NOT NULL,
   createdAt TEXT AS 'org.threeten.bp.ZonedDateTime' NOT NULL,
   desc1 TEXT NOT NULL,
@@ -12,3 +12,6 @@ CREATE TABLE article (
 
 select_all:
 select * from article;
+
+select_page:
+select * from article where type=? limit ? offset ?;

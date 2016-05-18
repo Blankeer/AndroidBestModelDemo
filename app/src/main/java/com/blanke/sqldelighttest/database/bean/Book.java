@@ -1,4 +1,4 @@
-package com.blanke.sqldelighttest.database.model;
+package com.blanke.sqldelighttest.database.bean;
 
 import com.blanke.sqldelighttest.database.adapter.DateAdapter;
 import com.google.auto.value.AutoValue;
@@ -17,8 +17,6 @@ public abstract class Book implements BookModel {
             return new AutoValue_Book(id, isbn, title, release_year);
         }
     }, DATE_ADAPTER);
-
-
 
     public static final class Marshal extends BookMarshal<Marshal> {
 
