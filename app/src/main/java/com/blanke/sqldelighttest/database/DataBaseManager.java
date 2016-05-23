@@ -11,6 +11,7 @@ import com.squareup.sqlbrite.SqlBrite;
 import rx.schedulers.Schedulers;
 
 /**
+ * DataBaseManager管理类，主要是对BriteDatabase的管理
  * Created by blanke on 16-5-18.
  */
 public class DataBaseManager {

@@ -55,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
         GanKAPI gankApi = retrofit.create(GanKAPI.class);
         articleApi = new ArticleApiImpl(
                 new ArticleDaoImpl(DataBaseManager.getBriteDatabase(this))
-                , gankApi
-        );
+                , gankApi);
     }
 
     private void getData() {

@@ -25,9 +25,9 @@ public class ArticleApiImpl implements ArticleApi {
     @Override
     public Observable<List<Article>> getArticles(String type, int size, int page) {
         return mGanKAPI.getArticles(type, size, page)
-                .map(ArticleJsonResult::results)
+                .map(ArticleJsonResult::results)//map转换为List<Article>
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(mArticleDao::insertArticles);
+                .doOnNext(mArticleDao::insertArticles);//保存到数据库
     }
 }
