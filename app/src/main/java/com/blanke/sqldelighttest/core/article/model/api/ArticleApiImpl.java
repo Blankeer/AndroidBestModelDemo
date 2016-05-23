@@ -7,6 +7,8 @@ import com.blanke.sqldelighttest.database.bean.Article;
 import java.util.List;
 
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by blanke on 16-5-18.
@@ -24,6 +26,8 @@ public class ArticleApiImpl implements ArticleApi {
     public Observable<List<Article>> getArticles(String type, int size, int page) {
         return mGanKAPI.getArticles(type, size, page)
                 .map(ArticleJsonResult::results)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(mArticleDao::insertArticles);
     }
 }
