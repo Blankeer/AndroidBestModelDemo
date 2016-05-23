@@ -1,5 +1,6 @@
 # Model层最佳实践demo
 参考：http://blog.piasy.com/2016/05/06/Perfect-Android-Model-Layer/
+http://blog.alexsimo.com/delightful-persistence-android/
 
 SqlDelight、AutoValue、Gson、SqlBrite、Retrofit
 
