@@ -38,6 +38,7 @@ public class DataBaseManager {
                     };
                     mSqlBrite = SqlBrite.create();
                     mBriteDatabase = mSqlBrite.wrapDatabaseHelper(mSqLiteOpenHelper, Schedulers.io());
+                    mBriteDatabase.setLoggingEnabled(true);
                 }
             }
         }

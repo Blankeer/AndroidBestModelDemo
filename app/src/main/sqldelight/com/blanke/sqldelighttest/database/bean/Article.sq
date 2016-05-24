@@ -15,3 +15,6 @@ select * from article;
 
 select_page:
 select * from article where type=? limit ? offset ?;
+
+select_by_id:
+select * from article where _id=?;

@@ -2,6 +2,7 @@ package com.blanke.sqldelighttest;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 import com.blanke.sqldelighttest.api.GanKAPI;
 import com.blanke.sqldelighttest.config.C;
@@ -25,11 +26,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private ArticleApi articleApi;
+    private TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mTextView = (TextView) findViewById(R.id.main_text);
         initConfig();
         getData();
     }
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 .subscribe(articles -> {
                     Logger.getLogger("mainactivity")
                             .info(articles.toString());
+                    mTextView.setText(articles.toString());
                 }, throwable -> {
                     throwable.printStackTrace();
                     Logger.getLogger("mainactivity")

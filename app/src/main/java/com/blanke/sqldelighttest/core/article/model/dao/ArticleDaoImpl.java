@@ -1,5 +1,7 @@
 package com.blanke.sqldelighttest.core.article.model.dao;
 
+import android.database.Cursor;
+
 import com.blanke.sqldelighttest.database.bean.Article;
 import com.squareup.sqlbrite.BriteDatabase;
 
@@ -30,8 +32,15 @@ public class ArticleDaoImpl implements ArticleDao {
         BriteDatabase.Transaction trans = mBriteDatabase.newTransaction();
         try {
             for (Article item : list) {
-                mBriteDatabase.insert(Article.TABLE_NAME,
-                        new Article.Marshal(item).asContentValues());
+                Cursor cursor = mBriteDatabase.query(Article.SELECT_BY_ID, item._id());
+                if (cursor.moveToNext() == false) {
+                    mBriteDatabase.insert(Article.TABLE_NAME,
+                            new Article.Marshal(item).asContentValues());
+                } else {
+                    mBriteDatabase.update(Article.TABLE_NAME,
+                            new Article.Marshal(item).asContentValues()
+                            , "_id=?", item._id());
+                }
             }
             trans.markSuccessful();
         } finally {
