@@ -5,28 +5,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.blanke.sqldelighttest.api.GanKAPI;
-import com.blanke.sqldelighttest.config.C;
 import com.blanke.sqldelighttest.core.article.model.api.ArticleApi;
 import com.blanke.sqldelighttest.core.article.model.api.ArticleApiImpl;
 import com.blanke.sqldelighttest.core.article.model.dao.ArticleDaoImpl;
 import com.blanke.sqldelighttest.database.DataBaseManager;
 import com.blanke.sqldelighttest.database.adapter.GankDateTimeForMatter;
+import com.blanke.sqldelighttest.database.bean.Article;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.ryanharter.auto.value.gson.AutoValueGsonTypeAdapterFactory;
 
 import org.threeten.bp.ZonedDateTime;
 
+import java.util.List;
 import java.util.logging.Logger;
 
+import io.appflate.restmock.RESTMockServer;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
     private ArticleApi articleApi;
     private TextView mTextView;
+    private boolean isTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +43,13 @@ public class MainActivity extends AppCompatActivity {
         getData();
     }
 
-    private void initConfig() {
+    public void setTest(Boolean isTest) {
+        this.isTest = isTest;
+    }
+
+    public void initConfig() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(C.BASE_API_URL)
+                .baseUrl(RESTMockServer.getUrl())
                 .addConverterFactory(
                         GsonConverterFactory.create(
                                 new GsonBuilder()
@@ -61,16 +71,21 @@ public class MainActivity extends AppCompatActivity {
                 , gankApi);
     }
 
-    private void getData() {
-        articleApi.getArticles("Android", 20, 1)
-                .subscribe(articles -> {
-                    Logger.getLogger("mainactivity")
-                            .info(articles.toString());
-                    mTextView.setText(articles.toString());
-                }, throwable -> {
-                    throwable.printStackTrace();
-                    Logger.getLogger("mainactivity")
-                            .info(throwable.toString());
-                });
+    public void getData() {
+        Observable<List<Article>> dataObservable = articleApi.getArticles("Android", 20, 1);
+        if (!isTest) {
+            dataObservable=dataObservable.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread());
+        }
+        dataObservable.subscribe(articles -> {
+            Logger.getLogger("mainactivity")
+                    .info(articles.toString());
+            System.out.println(articles.toString());
+            mTextView.setText(articles.toString());
+        }, throwable -> {
+            throwable.printStackTrace();
+            Logger.getLogger("mainactivity")
+                    .info(throwable.toString());
+        });
     }
 }

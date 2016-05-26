@@ -30,8 +30,9 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile 'junit:junit:4.12'
     testCompile 'junit:junit:4.12'
-    testCompile "org.mockito:mockito-core:1.+"
+    testCompile 'org.mockito:mockito-core:1.+'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.3'
     compile 'com.google.auto.value:auto-value:1.2'
@@ -43,4 +44,7 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'io.reactivex:rxandroid:1.2.0'
+    testCompile 'com.android.support:support-annotations:23.3.0'
+    compile 'com.github.andrzejchm.RESTMock:android:0.1.1'
+    testCompile "org.robolectric:robolectric:3.0"
 }
